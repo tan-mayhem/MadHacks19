@@ -86,6 +86,7 @@ async def addforsale(req: Request):
     '''
     req = await req.body()
     req = req.decode('utf-8')
+    print(req)
     return {'hello': 'world'}
     # req = {k:v for k,v in map(lambda x: x.split('='), req.split('&'))} if req else {}
     # return sdb.addSaleItem(**req)
