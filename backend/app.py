@@ -45,7 +45,7 @@ async def userexists(req: Request):
     '''
     req = await req.body()
     req = req.decode('utf-8')
-    req = {k.split('=')[0]:k.split('=')[1] for k in req.split('&')}
+    req = {k.split('=')[0]:k.split('=')[1] for k in req.split('&')} if req else {}
     return udb.doesUserExist(**req)
 
 @app.post("/adduser")
@@ -62,11 +62,11 @@ async def adduser(req: Request):
     '''
     req = await req.body()
     req = req.decode('utf-8')
-    req = {k.split('=')[0]:k.split('=')[1] for k in req.split('&')}
+    req = {k.split('=')[0]:k.split('=')[1] for k in req.split('&')} if req else {}
     return udb.signUpUser(**req)
 
 @app.post("/addforsale")
-async def addlandforsale(req: Request):
+async def addforsale(req: Request):
     '''
     <h3>add land for sale</br>
     required params:
@@ -87,7 +87,7 @@ async def addlandforsale(req: Request):
     print("\n\nHIT\n\n")
     req = await req.body()
     req = req.decode('utf-8')
-    req = {k:v for k,v in map(lambda x: x.split('='), req.split('&'))}
+    req = {k:v for k,v in map(lambda x: x.split('='), req.split('&'))} if req else {}
     return sdb.addSaleItem(**req)
 
 @app.get("/forsale")
