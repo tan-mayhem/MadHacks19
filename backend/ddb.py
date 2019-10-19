@@ -102,6 +102,7 @@ class ddbconn(db):
                 self.tid,
                 item
             )
+            print(3)
             return True
         except Exception as e:
             return {'error': str(e)}
