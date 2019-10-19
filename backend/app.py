@@ -84,6 +84,7 @@ async def addlandforsale(req: Request):
     <ul>
     </h3>
     '''
+    print("\n\nHIT\n\n")
     req = await req.body()
     req = req.decode('utf-8')
     req = {k:v for k,v in map(lambda x: x.split('='), req.split('&'))}
