@@ -44,12 +44,12 @@ render() {
   return (
     <div className="backg">
       <div className="buttons">
-        <Button size="lg" className="button1" variant="outline-dark">Sellers</Button>
-        <Button size="lg" onClick={this.handleClick} className="button2" variant="outline-dark">Buyers</Button>
+        <Button size="lg" onClick={this.handleClick} className="button2" variant="outline-dark">Sellers</Button>
         <MyVerticallyCenteredModal
         show={this.state.modalShow}
         onHide = {this.handleHide}
         />
+        <Button size="lg" className="button1" variant="outline-dark">Buyers</Button>
       </div>
     </div>
   );
