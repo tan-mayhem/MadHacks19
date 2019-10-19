@@ -35,8 +35,13 @@ async def root():
 @app.post("/userexists")
 async def userexists(req: Request):
     '''
-    <h3>check if user exists\n
-    required: `username` and `password`</h3>
+    <h3>check if user exists</br>
+    required
+    <ul>
+        <li>username</li>
+        <li>password</li>
+    </ul>
+    </h3>
     '''
     req = await req.body()
     req = req.decode('utf-8')
@@ -46,8 +51,14 @@ async def userexists(req: Request):
 @app.post("/adduser")
 async def adduser(req: Request):
     '''
-    <h3>add user\n
-    required: `username`, `password`, `phone`</h3>
+    <h3>add user</br>
+    required
+    <ul>
+        <li>username</li>
+        <li>password</li>
+        <li>phone</li>
+    </ul>
+    </h3>
     '''
     req = await req.body()
     req = req.decode('utf-8')
@@ -57,16 +68,21 @@ async def adduser(req: Request):
 @app.post("/addforsale")
 async def addlandforsale(req: Request):
     '''
-    <h3>add land for sale\n
+    <h3>add land for sale</br>
     required params:
-        - `seller`:     username of seller
-        - `title`:      title of post
-        - `location`:   street address of plot
-        - `size`:       size of land in acres
-        - `price`:      price of land per acre
-    optional params:
-        - `shortdesc`:  short description of land/usage/etc
-        - `longdesc`:   longer description</h3>
+    <ul>
+        <li>seller:     username of seller</li>
+        <li>title:      title of post</li>
+        <li>location:   street address of plot</li>
+        <li>size:       size of land in acres</li>
+        <li>price:      price of land per acre</li>
+        <ul>
+        optional params:
+            <li>shortdesc:  short description of land/usage/etc</li>
+            <li>longdesc:   longer description</li>
+        </ul>
+    <ul>
+    </h3>
     '''
     req = await req.body()
     req = req.decode('utf-8')
@@ -76,11 +92,23 @@ async def addlandforsale(req: Request):
 @app.get("/forsale")
 async def forsale(req: Request):
     '''
-    <h3>See for sale postings\n
+    <h3>See for sale postings
     optional params:
-        - `keywords`: delim'd string of keywords. searches union
-        - `price`:    max price per acre to search
-        - to search by location:
-            - `loc`:  street address
-            - `rad`:  radius in miles to search within</h3>
+    <ul>
+        <li>keywords: `*` delim'd string of keywords. searches union</li>
+        <li>price:    max price per acre to search.</li>
+        <li>To search by location:
+        <ul>
+            <li>loc:  street address</li>
+            <li>rad:  radius in miles to search within</li>
+        </ul>
+        </li>
+    </ul>
+    </h3>
     '''
+    req = await req.body()
+    req = req.decode('utf-8')
+    req = {k:v for k,v in map(lambda x: x.split('='), req.split('&'))} if req else {}
+    fs = sdb.scanForSale(**req)
+    for i in fs.get('Items', [{}]):
+        print(i)

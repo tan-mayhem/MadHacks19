@@ -23,6 +23,16 @@ class db:
                         region_name='us-west-1'
                     )
 
+
+    def getcli_(self):
+        ''' quickly get a client to scan '''
+        return boto3.client(
+                        'dynamodb',
+                        aws_access_key_id=os.environ.get('access'),
+                        aws_secret_access_key=os.environ.get('secret'),
+                        region_name='us-west-1'
+                    )
+
     def create_(self, tid, key_schema, attribute_defn, **kw):
         ''' create table '''
         self.res.create_table(
@@ -56,7 +66,8 @@ class db:
         return resp
 
     def scan_(self, tid, **kw):
-        pass
+        cli = self.getcli_()
+        return cli.scan(TableName=tid, **kw)
 
 
 ######################
@@ -108,6 +119,12 @@ class ddbconn(db):
         try:
             resp = self.delete_(self.tid, keytodelete)
             return resp
+        except Exception as e:
+            return {'error': str(e)}
+
+    def scan(self, tid, **kw):
+        try:
+            return self.scan_(tid, **kw)
         except Exception as e:
             return {'error': str(e)}
 
@@ -286,9 +303,14 @@ class saleddbconn(ddbconn):
         }
 
     def addSaleItem(self, **kw):
+        ''' add an item to our for sale db '''
         e = self.fmtentry__(**kw)
         p = self.put(e)
         if p:
             userddbconn().addSaleItemToUser(username=e['seller'], id_=e['id'])
             return {'Response': 1}
         return {'Response': 0}
+
+    def scanForSale(self, **kw):
+        ''' scan through the for sale db and return entries '''
+        return self.scan(self.tid, **kw)
