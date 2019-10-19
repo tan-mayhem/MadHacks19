@@ -1,0 +1,35 @@
+.landingPage
+{
+	background-image: url('https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80');
+	/*background-position: cover;*/
+	/*background-repeat: no-repeat;*/
+	height: 100vh;
+	padding:0;
+	margin:0;
+}
+
+.background-sheet
+{
+	background-color: rgba(255,255,255, .8);
+	height: 100vh;
+}
+
+.main-msg
+{
+	/*font-family: 'Mansalva', cursive;*/
+	color: #800000;
+	font-weight: 200;
+}
+
+#name
+{
+	text-decoration: none;
+	font-family: 'Josefin Sans', sans-serif;
+	font-size: 2.7rem;
+}
+
+.customButton
+{
+	color: #800000;
+	border-color: #800000;
+}

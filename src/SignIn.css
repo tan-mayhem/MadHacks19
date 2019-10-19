@@ -1,0 +1,104 @@
+.flex-wrapper
+{
+	display: flex;
+	flex-direction: row;
+  flex-flow: row wrap;
+}
+
+.flex-col
+{
+  display: flex;
+  flex-direction: column;
+}
+
+.signin-form
+{
+	display: flex;
+	flex-direction: row;/*
+	background-color: rgba(112,112,112,0.1);*/
+	height: 80vh;
+	width: 100%;
+	align-items: center;
+  justify-content: center;
+	text-align: center;
+}
+
+.form-div
+{
+  padding: 20px 40px;
+}
+
+.input-box
+{
+  padding: 10px;
+  margin: 10px 0px;
+  height: 30px;
+  width: 300px;
+  font-size: 16px;
+}
+
+.input-box-reg
+{
+  padding: 10px;
+  margin: 5px 0px;
+  height: 25px;
+  width: 300px;
+  font-size: 16px;
+}
+
+.input-box-list
+{
+  width: 100% !important;
+}
+
+input:focus
+{
+  outline: none;
+}
+
+.checkbox
+{
+  margin: 10px 0;
+}
+
+.checkbox:hover
+{
+  cursor: pointer;
+}
+
+#check:hover
+{
+  cursor: pointer;
+}
+
+.button
+{
+  margin: 20px 0;
+  padding: 7px;
+  align-self: center;
+  /*/width: 120px;*/
+  min-width: 120px !important;
+  height: 40px;
+  border-radius: 5%;
+  background-color: #A1DD70; /*#337AB7;*/
+  border-color: #5DB85B; /*#337AB7;*/
+  font-size: 20px;
+  color: white;
+}
+
+.button2
+{
+  background-color: #5DB85B; /*#3C9D9B;*/
+  margin-bottom: 0px !important ;
+}
+
+.button2-cr
+{
+  background-color: #5DB85B; /*#3C9D9B;*/
+}
+
+.button:hover
+{
+  opacity: 0.9;
+  cursor: pointer;
+}
