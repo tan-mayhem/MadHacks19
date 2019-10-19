@@ -102,7 +102,6 @@ class ddbconn(db):
                 self.tid,
                 item
             )
-            print(3)
             return True
         except Exception as e:
             return {'error': str(e)}
@@ -236,7 +235,6 @@ class userddbconn(ddbconn):
 
     def addSaleItemToUser(self, **kw):
         ''' add a sale item ID into user's `forsale` list '''
-        print(2)
         uname, pword = self.getUserCreds(**kw)
         try:
             table = self.res.Table(self.tid)
@@ -306,10 +304,9 @@ class saleddbconn(ddbconn):
 
     def addSaleItem(self, **kw):
         ''' add an item to our for sale db '''
-        print(1)
         e = self.fmtentry__(**kw)
-        print(e)
         p = self.put(e)
+        print(p)
         if p:
             userddbconn().addSaleItemToUser(username=e['seller'], id_=e['id'])
             return {'Response': 1}
