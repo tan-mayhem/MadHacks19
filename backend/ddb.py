@@ -298,8 +298,7 @@ class saleddbconn(ddbconn):
             'location':  kw.get('location'),
             'size':      kw.get('size'),
             'price':     kw.get('price'),
-            'shortdesc': kw.get('shortdesc', 'NA'),
-            'longdesc':  kw.get('longdesc', 'NA')
+            'desc': kw.get('desc', 'NA'),
         }
 
     def addSaleItem(self, **kw):

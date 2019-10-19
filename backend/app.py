@@ -78,8 +78,7 @@ async def addforsale(req: Request):
         <li>price:      price of land per acre</li>
         <ul>
         optional params:
-            <li>shortdesc:  short description of land/usage/etc</li>
-            <li>longdesc:   longer description</li>
+            <li>desc:   description of land/usage/etc</li>
         </ul>
     <ul>
     </h3>
