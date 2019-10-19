@@ -56,7 +56,7 @@ class db:
         return resp
 
     def scan_(self, tid, **kw):
-        resp = self.res.scan(TableName=)
+        pass
 
 
 ######################
