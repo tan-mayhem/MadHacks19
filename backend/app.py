@@ -19,7 +19,7 @@ sdb.create()
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost"],
     allow_credentials=True,
     allow_methods=["GET", "POST"],
     allow_headers=["*"],
@@ -48,7 +48,7 @@ async def userexists(req: Request):
     req = {k.split('=')[0]:k.split('=')[1] for k in req.split('&')} if req else {}
     return udb.doesUserExist(**req)
 
-@app.get("/adduser")
+@app.post("/adduser")
 async def adduser(req: Request):
     '''
     <h3>add user</br>
@@ -65,7 +65,7 @@ async def adduser(req: Request):
     req = {k.split('=')[0]:k.split('=')[1] for k in req.split('&')} if req else {}
     return udb.signUpUser(**req)
 
-@app.get("/addforsale")
+@app.post("/addforsale")
 async def addforsale(req: Request):
     '''
     <h3>add land for sale</br>
