@@ -14,12 +14,7 @@ app.add_middleware(
 async def root():
     return {"Message": "Hello!"}
 
-@app.post("/user/{action}/{id}")
-async def user(action: str="e", id: str):
+@app.post("/user/{id}")
+async def user(id: str):
     # check if user exists
-    if action == "e":
-        return 1
-    elif action == "a":
-        return -1
-
-@app.get
+    return {'Response': -1}
