@@ -21,7 +21,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST"],
     allow_headers=["*"],
 )
 
@@ -84,7 +84,6 @@ async def addforsale(req: Request):
     <ul>
     </h3>
     '''
-    print("\n\nHIT\n\n")
     req = await req.body()
     req = req.decode('utf-8')
     req = {k:v for k,v in map(lambda x: x.split('='), req.split('&'))} if req else {}
