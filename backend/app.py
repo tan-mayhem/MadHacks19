@@ -32,7 +32,7 @@ async def root():
     ''' to test if server is working '''
     return {"Message": "I'm working!"}
 
-@app.post("/userexists")
+@app.get("/userexists")
 async def userexists(req: Request):
     '''
     <h3>check if user exists</br>
@@ -48,7 +48,7 @@ async def userexists(req: Request):
     req = {k.split('=')[0]:k.split('=')[1] for k in req.split('&')} if req else {}
     return udb.doesUserExist(**req)
 
-@app.post("/adduser")
+@app.get("/adduser")
 async def adduser(req: Request):
     '''
     <h3>add user</br>
@@ -65,7 +65,7 @@ async def adduser(req: Request):
     req = {k.split('=')[0]:k.split('=')[1] for k in req.split('&')} if req else {}
     return udb.signUpUser(**req)
 
-@app.post("/addforsale")
+@app.get("/addforsale")
 async def addforsale(req: Request):
     '''
     <h3>add land for sale</br>
