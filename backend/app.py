@@ -84,8 +84,8 @@ async def addforsale(req: Request):
     <ul>
     </h3>
     '''
-    req = await req.body()
-    req = req.decode('utf-8')
+    req = await req.json()
+    # req = req.decode('utf-8')
     print(req)
     return {'hello': 'world'}
     # req = {k:v for k,v in map(lambda x: x.split('='), req.split('&'))} if req else {}
