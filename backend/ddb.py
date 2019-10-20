@@ -4,10 +4,21 @@ from boto3.dynamodb.conditions import Key, Attr, Not
 from dotenv import load_dotenv
 import os
 from agroinfo import agroinfo
-from app import sendtextupdate
 
 
 load_dotenv()
+
+
+# methods that dont belong anywhere else
+
+def sendtextupdate(recip, newprice):
+    client = Client(os.environ.get('twilacc'), os.environ.get('twiltok'))
+    msg = f"Hello from FarmWatch! The max bid on your plot is now {newprice}"
+    message = client.messages.create(
+        to=recip,
+        from_=os.environ.get('twilnum'),
+        body=msg
+    )
 
 #################
 # base db class #

@@ -10,15 +10,6 @@ from agroinfo import agroinfo
 load_dotenv()
 
 
-# methods that dont belong anywhere else
-def sendtextupdate(recip, newprice):
-    client = Client(os.environ.get('twilacc'), os.environ.get('twiltok'))
-    msg = f"Hello from FarmWatch! The max bid on your plot is now {newprice}"
-    message = client.messages.create(
-        to=recip,
-        from_=os.environ.get('twilnum'),
-        body=msg
-    )
 
 # setup ddb
 udb = ddb.userddbconn()
