@@ -322,6 +322,10 @@ class saleddbconn(ddbconn):
         ''' scan through the for sale db and return entries '''
         return self.scan(self.tid, **kw).get('Items', [{}])
 
+    def getCurrBidFromID(self, id_):
+        ''' use the for sale id to get the seller name to update price'''
+        return self.query(Key('id').eq(id_)).get('Items', [{}])[0].get('currbid', 'X')
+
     def getSellerFromID(self, id_):
         ''' use the for sale id to get the seller name to update price'''
         return self.query(Key('id').eq(id_)).get('Items', [{}])[0].get('seller', 'X')
@@ -333,8 +337,10 @@ class saleddbconn(ddbconn):
     def updatePrice(self, id_, bidder, newprice):
         ''' update price of for sale item in table '''
         try:
+            currb = self.getCurrBidFromID(id_)
+            if int(currb) >= int(newprice):
+                return {'Response': 0}
             seller = self.getSellerFromID(id_)
-            print(seller)
             table = self.res.Table(self.tid)
             result = table.update_item(
                 Key={
@@ -342,14 +348,12 @@ class saleddbconn(ddbconn):
                     'seller': seller
                 },
                 UpdateExpression="SET currbid = :i, currbidder = :j",
-                ConditionExpression="currbid < :i",
                 ExpressionAttributeValues={
                     ':i': newprice,
                     ':j': bidder
                 },
                 ReturnValues="UPDATED_NEW"
             )
-            print(result is None)
             return {'Response': 1}
         except Exception as e:
             return {'Response': 0, 'Meta': {'Error': str(e)}}
