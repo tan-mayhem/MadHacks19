@@ -3,7 +3,7 @@ import requests
 import numpy as np
 import os
 from base64 import b64encode as b64
-
+from crops import cropsmap
 load_dotenv()
 
 
@@ -74,8 +74,8 @@ class agroinfo:
                 if 'administrative_area_level_1' in c['types']:
                     state = c['long_name']
                     break
-            state = 'California' if state == '' else state
-            return state, geo.get('lat', ''), geo.get('lng', '')
+            crops = ['Potatoes', 'Tomatoes', 'Lettuce'] if state == '' else cropsmap[state].split(', ')
+            return crops, geo.get('lat', ''), geo.get('lng', '')
         return 'NONE', 0, 0
 
     def getlocationinfo(self, addr, n=1):
