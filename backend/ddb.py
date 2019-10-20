@@ -4,6 +4,7 @@ from boto3.dynamodb.conditions import Key, Attr, Not
 from dotenv import load_dotenv
 import os
 from agroinfo import agroinfo
+from twilio.rest import Client
 
 
 load_dotenv()
@@ -355,6 +356,7 @@ class saleddbconn(ddbconn):
         try:
             fs = self.getForSaleFromID(id_)
             if int(fs['currbid']) >= int(newprice):
+                print(1)
                 return {'Response': 0}
             seller = self.getSellerFromID(id_)
             table = self.res.Table(self.tid)
@@ -370,8 +372,10 @@ class saleddbconn(ddbconn):
                 },
                 ReturnValues="UPDATED_NEW"
             )
+            print(2)
             sendtextupdate(fs['phone'], newprice)
             return {'Response': 1, 'Current': newprice}
         except Exception as e:
+            print(3)
             return {'Response': 0, 'Meta': {'Error': str(e)}}
         return {'Response': 0}
