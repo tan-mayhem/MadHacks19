@@ -304,6 +304,7 @@ class saleddbconn(ddbconn):
     def addSaleItem(self, **kw):
         ''' add an item to our for sale db '''
         e = self.fmtentry__(**kw)
+        print(e)
         p = self.put(e)
         print(p)
         if p:
