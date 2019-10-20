@@ -295,15 +295,16 @@ class saleddbconn(ddbconn):
         clean up our input into a standard format
         '''
         data = {
-            'id':        str(int(time())),
-            'seller':    kw.get('seller',   'NA'),
-            'title':     kw.get('title',    'NA'),
-            'location':  kw.get('location', 'NA'),
-            'size':      kw.get('size',     'NA'),
-            'price':     kw.get('price',    'NA'),
-            'desc':      kw.get('desc',     'NA'),
-            'imgurl':    kw.get('imgurl',   'https://www.google.com/imgres?imgurl=https%3A%2F%2Fblog.ed.gov%2Ffiles%2F2019%2F08%2FAdobeStock_221344370.jpeg&imgrefurl=https%3A%2F%2Fblog.ed.gov%2F2019%2F08%2Fhands-learning-day-farm%2F&docid=R6vLeVjEdWqgfM&tbnid=yxmOHe-7nBo3pM%3A&vet=10ahUKEwjUn5rS8KnlAhVCvFkKHcLLBk8QMwh5KAAwAA..i&w=4288&h=2848&bih=949&biw=1853&q=farm&ved=0ahUKEwjUn5rS8KnlAhVCvFkKHcLLBk8QMwh5KAAwAA&iact=mrc&uact=8'),
-            'currbid':   0
+            'id':         str(int(time())),
+            'seller':     kw.get('seller',   'NA'),
+            'title':      kw.get('title',    'NA'),
+            'location':   kw.get('location', 'NA'),
+            'size':       kw.get('size',     'NA'),
+            'price':      kw.get('price',    'NA'),
+            'desc':       kw.get('desc',     'NA'),
+            'imgurl':     kw.get('imgurl',   'https://www.google.com/imgres?imgurl=https%3A%2F%2Fblog.ed.gov%2Ffiles%2F2019%2F08%2FAdobeStock_221344370.jpeg&imgrefurl=https%3A%2F%2Fblog.ed.gov%2F2019%2F08%2Fhands-learning-day-farm%2F&docid=R6vLeVjEdWqgfM&tbnid=yxmOHe-7nBo3pM%3A&vet=10ahUKEwjUn5rS8KnlAhVCvFkKHcLLBk8QMwh5KAAwAA..i&w=4288&h=2848&bih=949&biw=1853&q=farm&ved=0ahUKEwjUn5rS8KnlAhVCvFkKHcLLBk8QMwh5KAAwAA&iact=mrc&uact=8'),
+            'currbid':    0,
+            'currbidder': 'X',
         }
         data['station'] = self.aginf.getneareststation(data['location'])
         return data
@@ -322,10 +323,14 @@ class saleddbconn(ddbconn):
         return self.scan(self.tid, **kw).get('Items', [{}])
 
     def getSellerFromID(self, id_):
-        ''' use the for sale id to get the seller name to update '''
-        print(self.query(Key('id').eq(id_)))
+        ''' use the for sale id to get the seller name to update price'''
+        return self.query(Key('id').eq(id_)).get('Items', [{}])[0].get('seller', 'X')
 
-    def updatePrice(self, id_, newprice):
+    def getStationFromID(self, id_):
+        ''' use the for sale id to get the station name '''
+        return self.query(Key('id').eq(id_)).get('Items', [{}])[0].get('station', 'X')
+
+    def updatePrice(self, id_, bidder, newprice):
         ''' update price of for sale item in table '''
         try:
             seller = self.getSellerFromID(id_)
@@ -333,14 +338,13 @@ class saleddbconn(ddbconn):
             table = self.res.Table(self.tid)
             result = table.update_item(
                 Key={
-                    'username': uname,
-                    'password': pword
+                    'id': id_,
+                    'seller': seller
                 },
-                UpdateExpression="SET forsale = list_append(forsale, :i)",
-                ConditionExpression="NOT contains(forsale, :j)",
+                UpdateExpression="SET currbid = :i, currbidder = :j",
                 ExpressionAttributeValues={
-                    ':i': [kw.get('id_')],
-                    ':j': kw.get('id_')
+                    ':i': newprice,
+                    ':j', bidder
                 },
                 ReturnValues="UPDATED_NEW"
             )
@@ -348,3 +352,7 @@ class saleddbconn(ddbconn):
         except Exception as e:
             return {'Response': 0, 'Meta': {'Error': str(e)}}
         return {'Response': 0}
+
+if __name__ == '__main__':
+    sdb = saleddbconn()
+    print(sdb.updatePrice('1571545330', 9999))

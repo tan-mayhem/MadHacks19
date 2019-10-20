@@ -36,4 +36,10 @@ class agroinfo:
         lat, lng = self.geocode(addr)
         endpt = f"/stations/nearby?lat={lat}&lon={lng}&limit={n}&key={self.meteokey}"
         req = requests.get(self.meteourl.format(endpt)).json()
-        return req['data'][0]['id']
+        return req.get('data', [{}])[0].get('id', 'X')
+
+    def getweather(self, station):
+        ''' get multiannual monthly norms from given station '''
+        endpt = f"/climate/normals?station={station}&key={this.meteokey}"
+        req = requests.get(self.meteourl.format(endpt)).json()
+        print(req)

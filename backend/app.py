@@ -33,7 +33,7 @@ async def root():
     return {"Message": "I'm working!"}
 
 
-@app.get("/userexists")
+@app.post("/userexists")
 async def userexists(req: Request):
     '''
     <h3>check if user exists</br>
@@ -117,16 +117,30 @@ async def forsale(req: Request):
     return forsales
 
 
-@app.post('/forsale/update')
+@app.get('/forsale/update')
 async def forsaleupdate(req: Request):
     '''
     <h3>Add a bid</br>
     params:
     <ul>
-        <li>id:  id of posting</li>
-        <li>bid: new bid $$$</li>
+        <li>id:     id of posting</li>
+        <li>bidder: id of bidder</li>
+        <li>bid:    new bid $$$</li>
     </ul>
     </h3>
     '''
     req = await req.json()
-    sdb.updatePrice(red['id'], req['bid'])
+    sdb.updatePrice(red['id'], req['bidder'], req['bid'])
+
+
+@app.get('/weather')
+async def weather(req: Request):
+    '''
+    <h3>Get multiannual weather norms for land</br>
+    params:
+    <ul>
+        <li>id:  id of posting</li>
+    </ul>
+    </h3>
+    '''
+    return -1
