@@ -242,7 +242,7 @@ class userddbconn(ddbconn):
             result = table.update_item(
                 Key={
                     'username': uname,
-                    'password': pword
+                    # 'password': pword
                 },
                 UpdateExpression="SET forsale = list_append(forsale, :i)",
                 ConditionExpression="NOT contains(forsale, :j)",
@@ -304,7 +304,7 @@ class saleddbconn(ddbconn):
             'imgurl':    kw.get('imgurl',   'https://www.google.com/imgres?imgurl=https%3A%2F%2Fblog.ed.gov%2Ffiles%2F2019%2F08%2FAdobeStock_221344370.jpeg&imgrefurl=https%3A%2F%2Fblog.ed.gov%2F2019%2F08%2Fhands-learning-day-farm%2F&docid=R6vLeVjEdWqgfM&tbnid=yxmOHe-7nBo3pM%3A&vet=10ahUKEwjUn5rS8KnlAhVCvFkKHcLLBk8QMwh5KAAwAA..i&w=4288&h=2848&bih=949&biw=1853&q=farm&ved=0ahUKEwjUn5rS8KnlAhVCvFkKHcLLBk8QMwh5KAAwAA&iact=mrc&uact=8'),
             'currbid':   0
         }
-        data['station'] = self.aginf.getnearbystations(data['location'])
+        data['station'] = self.aginf.getneareststation(data['location'])
         return data
 
     def addSaleItem(self, **kw):
@@ -319,3 +319,25 @@ class saleddbconn(ddbconn):
     def scanForSale(self, **kw):
         ''' scan through the for sale db and return entries '''
         return self.scan(self.tid, **kw).get('Items', [{}])
+
+    def updatePrice(self, id_, newprice):
+        ''' update price of for sale item in table '''
+        try:
+            table = self.res.Table(self.tid)
+            result = table.update_item(
+                Key={
+                    'username': uname,
+                    'password': pword
+                },
+                UpdateExpression="SET forsale = list_append(forsale, :i)",
+                ConditionExpression="NOT contains(forsale, :j)",
+                ExpressionAttributeValues={
+                    ':i': [kw.get('id_')],
+                    ':j': kw.get('id_')
+                },
+                ReturnValues="UPDATED_NEW"
+            )
+            return {'Response': 1}
+        except Exception as e:
+            return {'Response': 0, 'Meta': {'Error': str(e)}}
+        return {'Response': 0}
