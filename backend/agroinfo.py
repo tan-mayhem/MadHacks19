@@ -28,6 +28,7 @@ class agroinfo:
             'Authorization': f'Basic {_}'
         }
         _ = requests.post(url, data=data, headers=headers).json()
+        print(_)
         self.awherekey = _['access_token']
 
     def initfield(self, field_id, field_addr):
@@ -41,7 +42,7 @@ class agroinfo:
         }
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': f'Basic {_}'
+            'Authorization': f'Basic {self.awherekey}'
         }
 
     def fmtgcpurl__(self, addr):
