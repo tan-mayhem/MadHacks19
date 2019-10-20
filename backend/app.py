@@ -43,9 +43,7 @@ async def userexists(req: Request):
     </ul>
     </h3>
     '''
-    req = await req.body()
-    req = req.decode('utf-8')
-    req = {k.split('=')[0]:k.split('=')[1] for k in req.split('&')} if req else {}
+    req = await req.json()
     return udb.doesUserExist(**req)
 
 @app.post("/adduser")
@@ -60,9 +58,7 @@ async def adduser(req: Request):
     </ul>
     </h3>
     '''
-    req = await req.body()
-    req = req.decode('utf-8')
-    req = {k.split('=')[0]:k.split('=')[1] for k in req.split('&')} if req else {}
+    req = await req.json()
     return udb.signUpUser(**req)
 
 @app.post("/addforsale")
@@ -103,9 +99,7 @@ async def forsale(req: Request):
     </ul>
     </h3>
     '''
-    req = await req.body()
-    req = req.decode('utf-8')
-    req = {k:v for k,v in map(lambda x: x.split('='), req.split('&'))} if req else {}
+    req = await req.json()
     fs = sdb.scanForSale(**req)
     for i in fs.get('Items', [{}]):
         print(i)

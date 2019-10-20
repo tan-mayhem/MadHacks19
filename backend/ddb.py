@@ -291,6 +291,7 @@ class saleddbconn(ddbconn):
         '''
         clean up our input into a standard format
         '''
+        print(kw)
         return {
             'id':        str(int(time())),
             'seller':    kw.get('seller',   'NA'),
@@ -303,6 +304,7 @@ class saleddbconn(ddbconn):
 
     def addSaleItem(self, **kw):
         ''' add an item to our for sale db '''
+        print(kw)
         e = self.fmtentry__(**kw)
         print(e)
         p = self.put(e)
