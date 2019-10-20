@@ -15,7 +15,7 @@ class agroinfo:
         self.gcpkey    = os.environ.get('gcpkey')
         self.gcpurl = 'https://maps.googleapis.com/maps/api/geocode/json?address={}&key={}'
         self.awhereurl = 'https://api.awhere.com{}'
-        self.makeawherekey__()
+        # self.makeawherekey__()
 
     def makeawherekey__(self):
         ''' combine our awhere access and key to get api key '''
@@ -33,6 +33,7 @@ class agroinfo:
     def initfield(self, field_id, field_addr):
         ''' get awhere field ID for this field '''
         print(4)
+        self.makeawherekey__()
         url = self.awhereurl.format('/v2/fields')
         lat, lng = self.geocode(field_addr)
         body = {
