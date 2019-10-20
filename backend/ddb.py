@@ -342,12 +342,14 @@ class saleddbconn(ddbconn):
                     'seller': seller
                 },
                 UpdateExpression="SET currbid = :i, currbidder = :j",
+                ConditionExpression="currbid < :i",
                 ExpressionAttributeValues={
                     ':i': newprice,
                     ':j': bidder
                 },
                 ReturnValues="UPDATED_NEW"
             )
+            print(result)
             return {'Response': 1}
         except Exception as e:
             return {'Response': 0, 'Meta': {'Error': str(e)}}
