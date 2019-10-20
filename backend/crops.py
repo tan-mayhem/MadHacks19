@@ -30,7 +30,7 @@ cropsmap = {
     'New Hampshire': 'greenhouse plants, dairy, apples',
     'New Jersey': 'greenhouse plants, horses/mules, blueberries',
     'New Mexico': 'dairy, cattle, hay',
-    'New York':c'dairy, greenhouse plants, corn',
+    'New York': 'dairy, greenhouse plants, corn',
     'North Carolina': 'poultry, hogs, greenhouse plants',
     'North Dakota': 'wheat, soybeans, corn',
     'Ohio': 'corn, soybeans, dairy',
