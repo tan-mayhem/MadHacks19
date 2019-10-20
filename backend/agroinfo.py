@@ -28,11 +28,10 @@ class agroinfo:
             'Authorization': f'Basic {_}'
         }
         _ = requests.post(url, data=data, headers=headers).json()
-        self.awherekey = _['access_token']
+        return _['access_token']
 
     def initfield(self, field_id, field_addr):
         ''' get awhere field ID for this field '''
-        print(4)
         self.makeawherekey__()
         url = self.awhereurl.format('/v2/fields')
         lat, lng = self.geocode(field_addr)
@@ -44,10 +43,9 @@ class agroinfo:
         }
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': f'Basic {self.awherekey}'
+            'Authorization': f'Basic {self.makeawherekey__()}'
         }
         _ = requests.post(url, headers=headers).json()
-        print(5)
         print(_)
         return -1
 
