@@ -1,0 +1,76 @@
+.t_flexwrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin : 0px;
+	padding: 0px;
+	/*border: 1px solid black;*/
+	margin-bottom: 20px;
+
+}
+
+.flex-item1
+{
+	width: 32.3%;
+	margin : 0px;
+	padding: 0px;
+	border-bottom: 1px solid black;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+}
+
+.flex-item2
+{
+	width: 32.3%;
+	margin : 0px;
+	padding: 0px;
+	border-bottom: 1px solid black;
+	border-top: 1px solid black;
+}
+.flex-item3
+{
+	width: 32.3%;
+	margin : 0px;
+	padding: 0px;
+	border-bottom: 1px solid black;
+	border-top: 1px solid black;
+	border-right: 1px solid black;
+}
+
+.cardim {
+	width: 100%;
+  	height: 100%;
+}
+
+.t_Title {
+	font-weight: 600 !important;
+	font-family: 'Archivo', sans-serif;
+	text-align: center;
+}
+
+.t_Cardsub {
+	text-align: center;
+
+}
+
+.t_desc
+{
+	text-decoration: none;
+	font-size: 18px;
+	color: black;
+}
+
+.page3bg {
+	background-image: url("potential.jpg");
+  	position: fixed;
+  	top: 0;
+  	left: 0;
+  	bottom: 0;
+  	right: 0;
+  	overflow: auto;
+  	background-size: cover;
+}
+
+.t_card {
+	background-color: rgba(255,255,255,0) !important;
+}
