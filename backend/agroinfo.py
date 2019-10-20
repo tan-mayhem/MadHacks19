@@ -66,18 +66,26 @@ class agroinfo:
         url = self.fmtgcpurl__(addr)
         resp = requests.get(url)
         if resp.status_code == 200:
-            _ =  resp.json().get('results', [{}])[0].get('geometry', {}).get('location', {})
-            return (_.get('lat', ''), _.get('lng', ''))
-        return (0, 0)
+            _ =  resp.json().get('results', [{}])[0]
+            geo = _.get('geometry', {}).get('location', {})
+            comps = _.get('address_components', [{}])
+            state = ''
+            for c in comps:
+                if 'administrative_area_level_1' in c['types']:
+                    state = c['long_name']
+                    break
+            state = 'California' if state == '' else state
+            return state, (geo.get('lat', ''), geo.get('lng', ''))
+        return 'NONE', (0, 0)
 
-    def getneareststation(self, addr, n=1):
-        ''' get nearest n weather station IDs to addr '''
-        lat, lng = self.geocode(addr)
+    def getlocationinfo(self, addr, n=1):
+        ''' get state and nearest weather station IDs for addr '''
+        state, lat, lng = self.geocode(addr)
         endpt = f"/stations/nearby?lat={lat}&lon={lng}&limit={n}&key={self.meteokey}"
         req = requests.get(self.meteourl.format(endpt)).json()
         if len(req.get('data', [])) < 1:
-            return '10637'
-        return req.get('data', [{}])[0].get('id', 'X')
+            return 'California', '10637'
+        return state, req.get('data', [{}])[0].get('id', 'X')
 
     def getweather(self, station):
         ''' get multiannual monthly norms from given station '''
