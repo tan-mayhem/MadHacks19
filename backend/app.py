@@ -32,6 +32,7 @@ async def root():
     ''' to test if server is working '''
     return {"Message": "I'm working!"}
 
+
 @app.get("/userexists")
 async def userexists(req: Request):
     '''
@@ -45,6 +46,7 @@ async def userexists(req: Request):
     '''
     req = await req.json()
     return udb.doesUserExist(**req)
+
 
 @app.post("/adduser")
 async def adduser(req: Request):
@@ -60,6 +62,7 @@ async def adduser(req: Request):
     '''
     req = await req.json()
     return udb.signUpUser(**req)
+
 
 @app.post("/addforsale")
 async def addforsale(req: Request):
@@ -83,10 +86,11 @@ async def addforsale(req: Request):
     req = await req.json()
     return sdb.addSaleItem(**req)
 
+
 @app.get("/forsale")
 async def forsale(req: Request):
     '''
-    <h3>See for sale postings
+    <h3>See for sale postings</br>
     optional params:
     <ul>
         <li>keywords: `*` delim'd string of keywords. searches union</li>
@@ -112,10 +116,17 @@ async def forsale(req: Request):
         forsales[i] = fs
     return forsales
 
+
 @app.post('/forsale/update')
 async def forsaleupdate(req: Request):
     '''
-    <h3>Add a bid</h3>
+    <h3>Add a bid</br>
+    params:
+    <ul>
+        <li>id:  id of posting</li>
+        <li>bid: new bid $$$</li>
+    </ul>
+    </h3>
     '''
     req = await req.json()
     print(req['id'], req['bid'])
