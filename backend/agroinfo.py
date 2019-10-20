@@ -31,19 +31,19 @@ class fakedata:
 
     def temperature(self):
         fd = self.gen__(0, 20)
-        self.metrics['temperature'] = {self.mos[i]:fd[i] for i, _ in enumerate(fd)}
+        self.metrics[0]['temperature'] = {self.mos[i]:fd[i] for i, _ in enumerate(fd)}
 
     def precipitation(self):
         fd = self.gen__(20, 70, 'precipitation')
-        self.metrics['precipitation'] = {self.mos[i]:fd[i] for i, _ in enumerate(fd)}
+        self.metrics[0]['precipitation'] = {self.mos[i]:fd[i] for i, _ in enumerate(fd)}
 
     def sunshine(self):
         fd = self.gen__(40, 250, 'sunshine')
-        self.metrics['sunshine'] = {self.mos[i]:fd[i] for i, _ in enumerate(fd)}
+        self.metrics[0]['sunshine'] = {self.mos[i]:fd[i] for i, _ in enumerate(fd)}
 
     def pressure(self):
         fd = self.gen__(1000, 1020, 'pressure')
-        self.metrics['pressure'] = {self.mos[i]:fd[i] for i, _ in enumerate(fd)}
+        self.metrics[0]['pressure'] = {self.mos[i]:fd[i] for i, _ in enumerate(fd)}
 
 
 class agroinfo:
