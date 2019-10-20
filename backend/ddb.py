@@ -344,7 +344,7 @@ class saleddbconn(ddbconn):
                 UpdateExpression="SET currbid = :i, currbidder = :j",
                 ExpressionAttributeValues={
                     ':i': newprice,
-                    ':j', bidder
+                    ':j': bidder
                 },
                 ReturnValues="UPDATED_NEW"
             )
