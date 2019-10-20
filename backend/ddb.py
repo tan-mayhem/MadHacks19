@@ -322,12 +322,14 @@ class saleddbconn(ddbconn):
         return self.scan(self.tid, **kw).get('Items', [{}])
 
     def getSellerFromID(self, id_):
-        ''' use the id to get the seller name to update '''
+        ''' use the for sale id to get the seller name to update '''
         print(self.query(Key('id').eq(id_)))
 
     def updatePrice(self, id_, newprice):
         ''' update price of for sale item in table '''
         try:
+            seller = self.getSellerFromID(id_)
+            print(seller)
             table = self.res.Table(self.tid)
             result = table.update_item(
                 Key={
