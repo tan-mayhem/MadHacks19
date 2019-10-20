@@ -122,7 +122,7 @@ async def forsale(req: Request):
         forsales[i] = fs
     return forsales
 
-@app.get('/forsale/update')
+@app.post('/forsale/update')
 async def forsaleupdate(req: Request):
     '''
     <h3>Add a bid</br>
