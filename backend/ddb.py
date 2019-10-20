@@ -291,7 +291,6 @@ class saleddbconn(ddbconn):
         '''
         clean up our input into a standard format
         '''
-        print(kw)
         return {
             'id':        str(int(time())),
             'seller':    kw.get('seller',   'NA'),
@@ -300,15 +299,13 @@ class saleddbconn(ddbconn):
             'size':      kw.get('size',     'NA'),
             'price':     kw.get('price',    'NA'),
             'desc':      kw.get('desc',     'NA'),
+            'imgurl':    kw.get('imgurl',   'NA')
         }
 
     def addSaleItem(self, **kw):
         ''' add an item to our for sale db '''
-        print(kw)
         e = self.fmtentry__(**kw)
-        print(e)
         p = self.put(e)
-        print(p)
         if p:
             userddbconn().addSaleItemToUser(username=e['seller'], id_=e['id'])
             return {'Response': 1}

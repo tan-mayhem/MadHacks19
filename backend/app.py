@@ -75,6 +75,7 @@ async def addforsale(req: Request):
         <ul>
         optional params:
             <li>desc:   description of land/usage/etc</li>
+            <li>imgurl: path to image</li>
         </ul>
     <ul>
     </h3>

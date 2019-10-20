@@ -9,17 +9,18 @@ class MyVerticallyCenteredModal extends React.Component {
     this.state = {title:'', location:'', size:'', price:''}
     this.handleChange1 = this.handleChange1.bind(this);
     this.handleChange2 = this.handleChange2.bind(this);
-    this.handleChange3 = this.handleChange1.bind(this);
-    this.handleChange4 = this.handleChange2.bind(this);
+    this.handleChange3 = this.handleChange3.bind(this);
+    this.handleChange4 = this.handleChange4.bind(this);
     this.handleClick = this.handleClick.bind(this);
 
   }
 
   async handleClick(e) {
     const url = 'http://54.193.24.23/addforsale'
+    console.log(this.state.size)
     const data = {seller:'jack', title:this.state.title, location:this.state.location, size:this.state.size, price:this.state.price};
     try {
-      const response = await fetch(url, 
+      const response = await fetch(url,
       {
         method: 'POST',
         body: JSON.stringify(data),
@@ -34,20 +35,20 @@ class MyVerticallyCenteredModal extends React.Component {
     }
  }
 
-  handleChange1(e) {
-  this.setState({title: e.target.value})
+async handleChange1(e) {
+  await this.setState({title: e.target.value})
  }
- handleChange2(e) {
-  this.setState({location: e.target.value})
+ async handleChange2(e) {
+  await this.setState({location: e.target.value})
  }
- handleChange3(e) {
-  this.setState({size: e.target.value})
+ async handleChange3(e) {
+  await this.setState({size: e.target.value})
  }
- handleChange4(e) {
-  this.setState({price: e.target.value})
+ async handleChange4(e) {
+  await this.setState({price: e.target.value})
  }
 
-render() { 
+render() {
   return (
     <Modal
       {...this.props}
@@ -57,7 +58,7 @@ render() {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Enter Details 
+          Enter Details
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
