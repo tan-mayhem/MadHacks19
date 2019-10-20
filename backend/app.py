@@ -135,4 +135,4 @@ async def forsaleupdate(req: Request):
     </h3>
     '''
     req = await req.json()
-    sdb.updatePrice(red['id'], req['bidder'], req['bid'])
+    sdb.updatePrice(req['id'], req['bidder'], req['bid'])

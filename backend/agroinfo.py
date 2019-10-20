@@ -7,6 +7,27 @@ from base64 import b64encode as b64
 load_dotenv()
 
 
+# why am i doing this???
+class fakedata:
+
+    def __init__(self):
+        self.mos = {k: -1 for k in [
+            'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL',
+            'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
+        ]}
+        self.metrics = {k: self.mos for k in ['temperature',
+            'precipitation', 'sunshine', 'pressure']}
+        self.faketemp()
+        self.fakeprecip()
+        self.fakesunsh()
+        self.fakepres()
+
+    def faketemp(self):
+        fake = np.random.uniform(low=20, high=70, size=12)
+        fake = list(map(lambda x: round(x, 2), fake))
+        return -1
+
+
 class agroinfo:
     ''' class to handle awhere and gcp connection '''
 
@@ -45,5 +66,4 @@ class agroinfo:
         return req
 
 if __name__ == '__main__':
-    ag = agroinfo()
-    print(ag.getweather(ag.getneareststation('319 trenton way menlo park ca')))
+    fakedata()
