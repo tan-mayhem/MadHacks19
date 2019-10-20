@@ -27,7 +27,7 @@ class fakedata:
         _ =  list(map(lambda x: round(x, 2), np.random.uniform(low=low, high=high, size=12)))
         if sort:
             _ = sorted(_)
-        return _
+        return _.astype(str)
 
     def temperature(self):
         fd = self.gen__(0, 20)
