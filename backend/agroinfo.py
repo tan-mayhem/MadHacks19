@@ -63,9 +63,9 @@ class agroinfo:
             return (_.get('lat', ''), _.get('lng', ''))
         return (0, 0)
 
-    def getnearbystations(self, addr, n=5):
+    def getnearbystations(self, addr, n=1):
         lat, lng = self.geocode(addr)
         endpt = f"/stations/nearby?lat={lat}&lon={lng}&limit={n}&key={self.meteokey}"
         _ = requests.get(self.meteourl.format(endpt)).json()
-        print(_)
+        print(_['data'][0]['id'])
         return -1

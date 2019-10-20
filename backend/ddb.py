@@ -304,7 +304,7 @@ class saleddbconn(ddbconn):
             'imgurl':    kw.get('imgurl',   'https://www.google.com/imgres?imgurl=https%3A%2F%2Fblog.ed.gov%2Ffiles%2F2019%2F08%2FAdobeStock_221344370.jpeg&imgrefurl=https%3A%2F%2Fblog.ed.gov%2F2019%2F08%2Fhands-learning-day-farm%2F&docid=R6vLeVjEdWqgfM&tbnid=yxmOHe-7nBo3pM%3A&vet=10ahUKEwjUn5rS8KnlAhVCvFkKHcLLBk8QMwh5KAAwAA..i&w=4288&h=2848&bih=949&biw=1853&q=farm&ved=0ahUKEwjUn5rS8KnlAhVCvFkKHcLLBk8QMwh5KAAwAA&iact=mrc&uact=8'),
             'currbid':   0
         }
-        self.aginf.getnearbystations(data['location'])
+        data['station'] = self.aginf.getnearbystations(data['location'])
         return data
 
     def addSaleItem(self, **kw):
