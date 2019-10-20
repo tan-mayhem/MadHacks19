@@ -64,7 +64,7 @@ async def adduser(req: Request):
 @app.post("/addforsale")
 async def addforsale(req: Request):
     '''
-    <h3>add land for sale</br>
+    <h3>add land to for sale</br>
     required params:
     <ul>
         <li>seller:     username of seller</li>
