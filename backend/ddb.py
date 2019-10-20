@@ -356,7 +356,6 @@ class saleddbconn(ddbconn):
         try:
             fs = self.getForSaleFromID(id_)
             if int(fs['currbid']) >= int(newprice):
-                print(1)
                 return {'Response': 0}
             seller = self.getSellerFromID(id_)
             table = self.res.Table(self.tid)
@@ -372,10 +371,8 @@ class saleddbconn(ddbconn):
                 },
                 ReturnValues="UPDATED_NEW"
             )
-            print(2)
             sendtextupdate(fs['phone'], fs['title'], newprice)
             return {'Response': 1, 'Current': newprice}
         except Exception as e:
-            print(3)
             return {'Response': 0, 'Meta': {'Error': str(e)}}
         return {'Response': 0}
