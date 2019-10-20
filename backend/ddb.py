@@ -313,5 +313,4 @@ class saleddbconn(ddbconn):
 
     def scanForSale(self, **kw):
         ''' scan through the for sale db and return entries '''
-        kw['ProjectionExpression'] = 'id, seller, title, location, size, price, desc, imgurl'
         return self.scan(self.tid, **kw).get('Items', [{}])
