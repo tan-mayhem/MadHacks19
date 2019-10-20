@@ -39,7 +39,7 @@ class agroinfo:
             'centerPoint':
                 {'latititude': lat,
                  'longitude':  lng}
-        }
+        }        
         headers = {
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.makeawherekey__()}'

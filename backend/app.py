@@ -111,3 +111,12 @@ async def forsale(req: Request):
                 fs[k] = fs[k][list(fs[k])[0]]
         forsales[i] = fs
     return forsales
+
+@app.post('/forsale/update')
+async def forsaleupdate(req: Request):
+    '''
+    <h3>Add a bid</h3>
+    '''
+    req = await req.json()
+    print(req['id'], req['bid'])
+    return 'I worked!'
