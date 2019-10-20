@@ -74,7 +74,7 @@ class agroinfo:
                 if 'administrative_area_level_1' in c['types']:
                     state = c['long_name']
                     break
-            crops = ['Potatoes', 'Tomatoes', 'Lettuce'] if state == '' else cropsmap[state].split(', ')
+            crops = [{'S':'Potatoes'}, {'S':'Tomatoes'}, {'S':'Lettuce'}] if state == '' else cropsmap[state].split(', ')
             return crops, geo.get('lat', ''), geo.get('lng', '')
         return 'NONE', 0, 0
 
