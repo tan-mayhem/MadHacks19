@@ -42,7 +42,7 @@ class agroinfo:
         }
         headers = {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': f'Basic {self.makeawherekey__()}'
+            'Authorization': f'Bearer {self.makeawherekey__()}'
         }
         _ = requests.post(url, headers=headers).json()
         print(_)
