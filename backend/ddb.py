@@ -306,6 +306,7 @@ class saleddbconn(ddbconn):
         ''' add an item to our for sale db '''
         e = self.fmtentry__(**kw)
         p = self.put(e)
+        print(p)
         if p:
             userddbconn().addSaleItemToUser(username=e['seller'], id_=e['id'])
             return {'Response': 1}
