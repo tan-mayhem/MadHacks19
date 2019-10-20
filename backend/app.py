@@ -100,7 +100,9 @@ async def forsale(req: Request):
     </ul>
     </h3>
     '''
-    req = await req.json()
-    fs = sdb.scanForSale(**req)
-    for i in fs.get('Items', [{}]):
-        print(i)
+    try:
+        req = await req.json()
+    except Exception as e:
+        req = {}
+    print(sdb.scanForSale(**req))
+    return -1

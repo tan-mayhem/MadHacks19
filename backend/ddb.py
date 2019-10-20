@@ -313,4 +313,4 @@ class saleddbconn(ddbconn):
 
     def scanForSale(self, **kw):
         ''' scan through the for sale db and return entries '''
-        return self.scan(self.tid, **kw)
+        return self.scan(self.tid, **kw).get('Items', [{}])
