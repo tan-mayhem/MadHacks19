@@ -99,7 +99,6 @@ async def addforsale(req: Request):
     req = await req.json()
     return sdb.addSaleItem(**req)
 
-
 @app.get("/forsale")
 async def forsale(req: Request):
     '''
