@@ -1,6 +1,6 @@
 cropsmap = {
     'Alabama': 'poultry, cattle, eggs',
-    'Alaska': 'greenhouse plants, hay, potatoes'
+    'Alaska': 'greenhouse plants, hay, potatoes',
     'Arizona': 'dairy, cattle, greenhouse plants',
     'Arkansas': 'poultry, rice, soybeans',
     'California': 'dairy, greenhouse plants, grapes',
