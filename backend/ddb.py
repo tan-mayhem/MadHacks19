@@ -242,7 +242,7 @@ class userddbconn(ddbconn):
             result = table.update_item(
                 Key={
                     'username': uname,
-                    # 'password': pword
+                    'password': pword
                 },
                 UpdateExpression="SET forsale = list_append(forsale, :i)",
                 ConditionExpression="NOT contains(forsale, :j)",
@@ -320,6 +320,10 @@ class saleddbconn(ddbconn):
     def scanForSale(self, **kw):
         ''' scan through the for sale db and return entries '''
         return self.scan(self.tid, **kw).get('Items', [{}])
+
+    def getSellerFromID(self, id_):
+        ''' use the id to get the seller name to update '''
+        print(self.query(Key('id').eq(id_)))
 
     def updatePrice(self, id_, newprice):
         ''' update price of for sale item in table '''
