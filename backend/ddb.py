@@ -354,7 +354,7 @@ class saleddbconn(ddbconn):
                 },
                 ReturnValues="UPDATED_NEW"
             )
-            return {'Response': 1}
+            return {'Response': 1, 'Current': newprice}
         except Exception as e:
             return {'Response': 0, 'Meta': {'Error': str(e)}}
         return {'Response': 0}
