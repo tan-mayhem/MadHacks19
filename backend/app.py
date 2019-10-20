@@ -80,6 +80,7 @@ async def addforsale(req: Request):
         <li>location:   street address of plot</li>
         <li>size:       size of land in acres</li>
         <li>price:      price of land per acre</li>
+        <li>phone:      contact info</li>
         <ul>
         optional params:
             <li>desc:   description of land/usage/etc</li>

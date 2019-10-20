@@ -40,6 +40,10 @@ class agroinfo:
 
     def getweather(self, station):
         ''' get multiannual monthly norms from given station '''
-        endpt = f"/climate/normals?station={station}&key={this.meteokey}"
+        endpt = f"/climate/normals?station={station}&key={self.meteokey}"
         req = requests.get(self.meteourl.format(endpt)).json()
-        print(req)
+        return req
+
+if __name__ == '__main__':
+    ag = agroinfo()
+    print(ag.getweather(ag.getneareststation('319 trenton way menlo park ca')))
