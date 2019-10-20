@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 import ddb
-
+import agroinfo
 
 # setup ddb
 udb = ddb.userddbconn()
@@ -110,6 +110,7 @@ async def forsale(req: Request):
     </ul>
     </h3>
     '''
+    aginf = agroinfo()
     try:
         req = await req.json()
     except Exception as e:
@@ -119,6 +120,7 @@ async def forsale(req: Request):
         if isinstance(fs, dict):
             for k in list(fs):
                 fs[k] = fs[k][list(fs[k])[0]]
+        fs['weather'] = aginf.getweather(fs['station'])
         forsales[i] = fs
     return forsales
 

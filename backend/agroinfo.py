@@ -11,21 +11,39 @@ load_dotenv()
 class fakedata:
 
     def __init__(self):
-        self.mos = {k: -1 for k in [
+        ''' set up a dict for records for each month '''
+        self.mos = [
             'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL',
             'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
-        ]}
-        self.metrics = {k: self.mos for k in ['temperature',
+        ]
+        self.metrics = {k: -1 for k in ['temperature',
             'precipitation', 'sunshine', 'pressure']}
-        self.faketemp()
-        self.fakeprecip()
-        self.fakesunsh()
-        self.fakepres()
+        self.temperature()
+        self.precipitation()
+        self.sunshine()
+        self.pressure()
 
-    def faketemp(self):
-        fake = np.random.uniform(low=20, high=70, size=12)
-        fake = list(map(lambda x: round(x, 2), fake))
-        return -1
+    def gen__(self, low, high, sort=False):
+        _ =  list(map(lambda x: round(x, 2), np.random.uniform(low=low, high=high, size=12)))
+        if sort:
+            _ = sorted(_)
+        return _
+
+    def temperature(self):
+        fd = self.gen__(0, 20)
+        self.metrics['temperature'] = {self.mos[i]:fd[i] for i, _ in enumerate(fd)}
+
+    def precipitation(self):
+        fd = self.gen__(20, 70, 'precipitation')
+        self.metrics['precipitation'] = {self.mos[i]:fd[i] for i, _ in enumerate(fd)}
+
+    def sunshine(self):
+        fd = self.gen__(40, 250, 'sunshine')
+        self.metrics['sunshine'] = {self.mos[i]:fd[i] for i, _ in enumerate(fd)}
+
+    def pressure(self):
+        fd = self.gen__(1000, 1020, 'pressure')
+        self.metrics['pressure'] = {self.mos[i]:fd[i] for i, _ in enumerate(fd)}
 
 
 class agroinfo:
@@ -63,7 +81,8 @@ class agroinfo:
         ''' get multiannual monthly norms from given station '''
         endpt = f"/climate/normals?station={station}&key={self.meteokey}"
         req = requests.get(self.meteourl.format(endpt)).json()
+        if len(req.get('data', [])) < 1:
+            req = fakedata().metrics
+        else:
+            req = req['data']
         return req
-
-if __name__ == '__main__':
-    fakedata()
