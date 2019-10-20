@@ -4,6 +4,7 @@ from boto3.dynamodb.conditions import Key, Attr, Not
 from dotenv import load_dotenv
 import os
 from agroinfo import agroinfo
+from app import sendtextupdate
 
 
 load_dotenv()
@@ -322,6 +323,10 @@ class saleddbconn(ddbconn):
         ''' scan through the for sale db and return entries '''
         return self.scan(self.tid, **kw).get('Items', [{}])
 
+    def getForSaleFromID(self, id_):
+        ''' use the for sale id to get the posting '''
+        return self.query(Key('id').eq(id_)).get('Items', [{}])[0]
+
     def getCurrBidFromID(self, id_):
         ''' use the for sale id to get the seller name to update price'''
         return self.query(Key('id').eq(id_)).get('Items', [{}])[0].get('currbid', 'X')
@@ -337,8 +342,8 @@ class saleddbconn(ddbconn):
     def updatePrice(self, id_, bidder, newprice):
         ''' update price of for sale item in table '''
         try:
-            currb = self.getCurrBidFromID(id_)
-            if int(currb) >= int(newprice):
+            fs = self.getForSaleFromID(id_)
+            if int(fs['currbid']) >= int(newprice):
                 return {'Response': 0}
             seller = self.getSellerFromID(id_)
             table = self.res.Table(self.tid)
@@ -354,6 +359,7 @@ class saleddbconn(ddbconn):
                 },
                 ReturnValues="UPDATED_NEW"
             )
+            sendtextupdate(fs['phone'], newprice)
             return {'Response': 1, 'Current': newprice}
         except Exception as e:
             return {'Response': 0, 'Meta': {'Error': str(e)}}
