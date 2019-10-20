@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 from starlette.requests import Request
 import ddb
-import agroinfo
+from agroinfo import agroinfo
 
 # setup ddb
 udb = ddb.userddbconn()
