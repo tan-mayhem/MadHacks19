@@ -75,8 +75,8 @@ class agroinfo:
                     state = c['long_name']
                     break
             state = 'California' if state == '' else state
-            return state, (geo.get('lat', ''), geo.get('lng', ''))
-        return 'NONE', (0, 0)
+            return state, geo.get('lat', ''), geo.get('lng', '')
+        return 'NONE', 0, 0
 
     def getlocationinfo(self, addr, n=1):
         ''' get state and nearest weather station IDs for addr '''
