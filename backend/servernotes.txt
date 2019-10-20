@@ -1,0 +1,18 @@
+run these commands to log into server:
+
+  cd MadHacks19/backend
+  sudo chmod 400 key-madhacks2019.pem
+  ssh -i "key-madhacks2019.pem" ubuntu@ec2-54-193-24-23.us-west-1.compute.amazonaws.com
+
+once on the server:
+
+  cd ~
+  cd MadHacks19/backend
+  tmux a #                         // the server is running in a tmux session. "#" === most recent tmux session
+  sudo service nginx restart       // to restart web daemon
+  uvicorn app:app                  // uvicorn hosts our uWSGI `app` from module `app`
+  Ctrl-b d                         // exit the tmux session
+  logout                           // leave server
+
+
+---------------------------------------------------------------------------------------------------------------
