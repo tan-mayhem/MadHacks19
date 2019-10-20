@@ -254,6 +254,7 @@ class userddbconn(ddbconn):
             )
             return {'Response': 1}
         except Exception as e:
+            print(e)
             return {'Response': 0, 'Meta': {'Error': str(e)}}
 
 ##############################
