@@ -293,12 +293,12 @@ class saleddbconn(ddbconn):
         '''
         return {
             'id':        str(int(time())),
-            'seller':    kw.get('seller'),
-            'title':     kw.get('title'),
-            'location':  kw.get('location'),
-            'size':      kw.get('size'),
-            'price':     kw.get('price'),
-            'desc': kw.get('desc', 'NA'),
+            'seller':    kw.get('seller',   'NA'),
+            'title':     kw.get('title',    'NA'),
+            'location':  kw.get('location', 'NA'),
+            'size':      kw.get('size',     'NA'),
+            'price':     kw.get('price',    'NA'),
+            'desc':      kw.get('desc',     'NA'),
         }
 
     def addSaleItem(self, **kw):
