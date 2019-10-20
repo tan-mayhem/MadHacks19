@@ -4,7 +4,6 @@ import "./tachyonStyles.css";
 import Navbar from "./Navbar";
 import SignIn from "./SignIn";
 import Register from "./Register";
-//import "./LandingPage.css";
 
 const initialState = {
 	register: ''
