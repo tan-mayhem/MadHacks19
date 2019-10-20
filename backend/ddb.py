@@ -203,11 +203,9 @@ class userddbconn(ddbconn):
         if self.doesUserExist(**kw)['Response'] == 0:
             p = self.put(self.fmtentry__(**kw))
             if p:
-                return {'message': 'user signed up.',
-                        'meta': {'newuname': kw.get('username')}}
-            return {'message': 'failed to sign up user.',
-                        'meta': p}
-        return {'message': 'user already exists'}
+                return {'Response': 1}
+            return {'Response': 0}
+        return {'Response': 1}
 
     def logInUser(self, **kw):
         ''' if user exists, send them a cookie '''
