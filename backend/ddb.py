@@ -342,7 +342,7 @@ class saleddbconn(ddbconn):
                     'seller': seller
                 },
                 UpdateExpression="SET currbid = :i, currbidder = :j",
-                ConditionExpression="currbid < :i",
+                # ConditionExpression="currbid < :i",
                 ExpressionAttributeValues={
                     ':i': newprice,
                     ':j': bidder
