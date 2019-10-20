@@ -16,8 +16,8 @@ class fakedata:
             'JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL',
             'AUG', 'SEP', 'OCT', 'NOV', 'DEC'
         ]
-        self.metrics = {k: -1 for k in ['temperature',
-            'precipitation', 'sunshine', 'pressure']}
+        self.metrics = [{k: -1 for k in ['temperature',
+            'precipitation', 'sunshine', 'pressure']}]
         self.temperature()
         self.precipitation()
         self.sunshine()
@@ -75,6 +75,8 @@ class agroinfo:
         lat, lng = self.geocode(addr)
         endpt = f"/stations/nearby?lat={lat}&lon={lng}&limit={n}&key={self.meteokey}"
         req = requests.get(self.meteourl.format(endpt)).json()
+        if len(req.get('data', [])) < 1:
+            return '10637'
         return req.get('data', [{}])[0].get('id', 'X')
 
     def getweather(self, station):
@@ -82,7 +84,6 @@ class agroinfo:
         endpt = f"/climate/normals?station={station}&key={self.meteokey}"
         req = requests.get(self.meteourl.format(endpt)).json()
         if len(req.get('data', [])) < 1:
-            req = fakedata().metrics
+            return fakedata().metrics
         else:
-            req = req['data']
-        return req
+            return req['data']
