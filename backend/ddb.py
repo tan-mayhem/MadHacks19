@@ -302,7 +302,7 @@ class saleddbconn(ddbconn):
             'price':     kw.get('price',    'NA'),
             'desc':      kw.get('desc',     'NA'),
             'imgurl':    kw.get('imgurl',   'NA'),
-            'topbid':    0,
+            'currbid':   0,
             'fieldID':   ''
         }
         _['fieldID'] = self.aginf.initfield(_['id'], _['location'])
@@ -310,6 +310,7 @@ class saleddbconn(ddbconn):
 
     def addSaleItem(self, **kw):
         ''' add an item to our for sale db '''
+        print(1)
         e = self.fmtentry__(**kw)
         p = self.put(e)
         if p is True:
