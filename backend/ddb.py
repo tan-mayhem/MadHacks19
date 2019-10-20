@@ -175,6 +175,7 @@ class userddbconn(ddbconn):
             'username':    self.hash__(kw.get('username')),
             'password':    self.hash__(kw.get('password')),
             'phone':       self.hash__(kw.get('phone')),
+            'name':        kw.get('name', 'X')
             'forsale':     [],
             'signupdate':  str(int(time()))
         }

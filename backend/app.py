@@ -25,13 +25,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# define routes
+
+##############
+# USER STUFF #
+##############
 
 @app.get("/test")
 async def root():
     ''' to test if server is working '''
     return {"Message": "I'm working!"}
-
 
 @app.post("/userexists")
 async def userexists(req: Request):
@@ -47,7 +49,6 @@ async def userexists(req: Request):
     req = await req.json()
     return udb.doesUserExist(**req)
 
-
 @app.post("/adduser")
 async def adduser(req: Request):
     '''
@@ -56,13 +57,17 @@ async def adduser(req: Request):
     <ul>
         <li>username</li>
         <li>password</li>
-        <li>phone</li>
+        <li>name</li>
     </ul>
     </h3>
     '''
     req = await req.json()
     return udb.signUpUser(**req)
 
+
+##################
+# FOR SALE STUFF #
+##################
 
 @app.post("/addforsale")
 async def addforsale(req: Request):
@@ -116,7 +121,6 @@ async def forsale(req: Request):
         forsales[i] = fs
     return forsales
 
-
 @app.get('/forsale/update')
 async def forsaleupdate(req: Request):
     '''
@@ -131,16 +135,3 @@ async def forsaleupdate(req: Request):
     '''
     req = await req.json()
     sdb.updatePrice(red['id'], req['bidder'], req['bid'])
-
-
-@app.get('/weather')
-async def weather(req: Request):
-    '''
-    <h3>Get multiannual weather norms for land</br>
-    params:
-    <ul>
-        <li>id:  id of posting</li>
-    </ul>
-    </h3>
-    '''
-    return -1
