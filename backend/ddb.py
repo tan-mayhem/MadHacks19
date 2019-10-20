@@ -286,7 +286,7 @@ class saleddbconn(ddbconn):
                         'AttributeType': 'S'
                     }
                 ]
-        self.aginf = agroagroinfo()
+        self.aginf = agroinfo()
         ddbconn.__init__(self, self.tid, self.key_schema, self.attr_defn)
 
     def fmtentry__(self, **kw):
