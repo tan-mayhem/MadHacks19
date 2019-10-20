@@ -27,8 +27,7 @@ class agroinfo:
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': f'Basic {_}'
         }
-        _ = requests.post(url, data=data, headers=headers).json()
-        return _['access_token']
+        return requests.post(url, data=data, headers=headers).json()['access_token']
 
     def initfield(self, field_id, field_addr):
         ''' get awhere field ID for this field '''

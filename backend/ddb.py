@@ -293,7 +293,6 @@ class saleddbconn(ddbconn):
         '''
         clean up our input into a standard format
         '''
-        print(2)
         _ = {
             'id':        str(int(time())),
             'seller':    kw.get('seller',   'NA'),
@@ -303,16 +302,13 @@ class saleddbconn(ddbconn):
             'price':     kw.get('price',    'NA'),
             'desc':      kw.get('desc',     'NA'),
             'imgurl':    kw.get('imgurl',   'https://www.google.com/imgres?imgurl=https%3A%2F%2Fblog.ed.gov%2Ffiles%2F2019%2F08%2FAdobeStock_221344370.jpeg&imgrefurl=https%3A%2F%2Fblog.ed.gov%2F2019%2F08%2Fhands-learning-day-farm%2F&docid=R6vLeVjEdWqgfM&tbnid=yxmOHe-7nBo3pM%3A&vet=10ahUKEwjUn5rS8KnlAhVCvFkKHcLLBk8QMwh5KAAwAA..i&w=4288&h=2848&bih=949&biw=1853&q=farm&ved=0ahUKEwjUn5rS8KnlAhVCvFkKHcLLBk8QMwh5KAAwAA&iact=mrc&uact=8'),
-            'currbid':   0,
-            'fieldID':   ''
+            'currbid':   0
         }
-        print(3)
         _['fieldID'] = self.aginf.initfield(_['id'], _['location'])
         return _
 
     def addSaleItem(self, **kw):
         ''' add an item to our for sale db '''
-        print(1)
         e = self.fmtentry__(**kw)
         p = self.put(e)
         if p is True:
