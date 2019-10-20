@@ -34,8 +34,8 @@ class Navbar extends Component
 		return (
 			<nav className="dt w-100 pa3 center navbar"> 
 		        <div className="dtc v-mid pv1 ph3">
-		          <a href="/" id="name" className="dib pa2 grow-large fw1 logo white">
-		            The Farm App</a>
+		          <a href="/" id="name" className="dib pa1 grow-large fw1 logo white">
+		            LandYourGreen.space</a>
 		        </div>
 
 		        <div className="dtc v-mid tr pv1 ph3 sans-serif">

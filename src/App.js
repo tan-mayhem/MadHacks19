@@ -1,6 +1,8 @@
 import React, { Component }  from 'react';
 import { Route, Switch } from 'react-router-dom';
 import LandingPage from './LandingPage';
+import Secondpage from './t_second_page/Secondpage';
+import Listings from './t_third_page/Listings';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import Button from 'react-bootstrap/Button';
 import './App.css';
@@ -38,6 +40,14 @@ class App extends Component
         <Switch>
           <Route exact path = '/' 
             render = { () => <LandingPage currentUser={this.state.currentUser} /> }
+          />
+
+          <Route exact path = '/profile' 
+            render = { () => <Secondpage /> }
+          />
+
+          <Route exact path = '/results' 
+            render = { () => <Listings /> }
           />
         </Switch>
       </div>

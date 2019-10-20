@@ -20,7 +20,7 @@ class Register extends Component
 	  this.state = initialState;
 	}
 
-	handleSubmit = (event) => 
+	handleSubmit = async (event) => 
 	{
 		event.preventDefault();
 
@@ -33,7 +33,34 @@ class Register extends Component
 		else if(this.state.password!==this.state.confirmPassword)
 			alert("Passwords don't match! Please try again!");
 		else {
-			//fetch
+			const url = 'http://54.193.24.23/adduser'
+		   	const data = {username:this.state.email, password:this.state.password, name:this.state.name};
+		   	try {
+		   		const response = await fetch(url, 
+		   		{
+		   			method: 'POST',
+		   			body: JSON.stringify(data),
+		   			headers: {
+		   				'Content-Type': 'application/json'
+		   			},
+		   		});
+		   		const json = await response.json();
+		   		console.log('KKKKIII'+json)
+		      	if(json["Response"] === 1)
+		      	{
+		      		this.props.history.push('/profile', {
+		      			email: this.state.email
+		      		});
+		      		
+		      	}
+		      	else
+		      	{
+		      		alert("Server Down: Try again Later")
+		      	}
+		      }
+				catch (error) {
+		   		console.error('Error', error);
+		   	}
 		}
 	}
 

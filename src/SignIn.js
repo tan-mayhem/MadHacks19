@@ -7,6 +7,8 @@ const initialState = {
 	email: "",
 	password: "",
 	checkbox: false,
+	txt: '',
+	flag: 0
 };
 
 class SignIn extends Component 
@@ -25,35 +27,37 @@ class SignIn extends Component
 			alert("Enter login credentials");
 		else
 		{
-			//fetch
-			// const url = 'http://54.193.24.23/test'
-		 //   	const data = {email:this.state.email, password:this.state.password};
-		 //   	try {
-		 //   		const response = await fetch(url, 
-		 //   		{
-		 //   			method: 'POST',
-		 //   			body: JSON.stringify(data),
-		 //   			headers: {
-		 //   				'Content-Type': 'application/json'
-		 //   			},
-		 //   		});
-		 //   		const json = await response.json();
-		 //      	if(json['Result'] === 1) {
-		 //        	console.log(json['Cookie']);
-		 //        let path = Flood;
-		 //        this.props.history.push(path)
-		 //        this.setState({flag: 1, txt:'', redir:'true'});
-		 //        this.props.loginSuccessHandler()
-		 //      }
-		 //      else {
-		 //         this.setState({flag:2, txt:'Wrong Username or Password'}); 
-		 //      }
-		 //   		console.log('Success', JSON.stringify(json));
-		 //      //console.log(json['Cookie']);
-		 //   	} catch (error) {
-		 //   		console.error('Error', error);
-		 //   	}
+			const url = 'http://54.193.24.23/userexists'
+		   	const data = {username:this.state.email, password:this.state.password};
+		   	try {
+		   		const response = await fetch(url, 
+		   		{
+		   			method: 'POST',
+		   			body: JSON.stringify(data),
+		   			headers: {
+		   				'Content-Type': 'application/json'
+		   			},
+		   		});
+		   		const json = await response.json();
+		   		console.log('KKKKIII'+json)
+		      	if(json["Response"]===1)
+		      	{
+		      		this.props.history.push('/profile', {
+		      			email: this.state.email
+		      		});
+		      		this.setState({flag: '1', txt:''})
+		      	}
+		      	else
+		      	{
+		      		this.setState({txt: 'Invalid username or password'})
+		      		this.setState({flag: '2'})
+		      	}
+		      }
+				catch (error) {
+		   		console.error('Error', error);
+		   	}
 		}
+		
 	}
 
 	handleChange = async (event) =>
@@ -92,6 +96,7 @@ class SignIn extends Component
 					    	<label> Password <i className="fa fa-lock ph1" aria-hidden="true"></i> </label>
 					    	<input name="password" type="password" className="input-box" required
 					    		placeholder="Password" onChange={this.handleChange}/>
+					    	<span style={{color:'red'}}>{this.state.txt}</span>
 
 					    	<div className="checkbox" onClick={this.check}>
 					    		<input id="check" type="checkbox" name="checkbox"
