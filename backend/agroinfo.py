@@ -41,7 +41,7 @@ class agroinfo:
                  'longitude':  lng}
         }
         headers = {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.makeawherekey__()}'
         }
         _ = requests.post(url, headers=headers).json()
