@@ -104,5 +104,10 @@ async def forsale(req: Request):
         req = await req.json()
     except Exception as e:
         req = {}
-    print(sdb.scanForSale(**req))
-    return -1
+    forsales = sdb.scanForSale(**req)
+    for i, fs in enumerate(forsales):
+        if isinstance(fs, dict):
+            for k in list(fs):
+                fs[k] = fs[k][list(fs[k])[0]]
+        forsales[i] = fs
+    return forsales

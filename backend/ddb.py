@@ -3,6 +3,7 @@ import boto3
 from boto3.dynamodb.conditions import Key, Attr, Not
 from dotenv import load_dotenv
 import os
+from agroinfo import agroinfo
 
 
 load_dotenv()
@@ -18,8 +19,8 @@ class db:
         ''' get a dynamodb resource '''
         self.res = boto3.resource(
                         'dynamodb',
-                        aws_access_key_id=os.environ.get('access'),
-                        aws_secret_access_key=os.environ.get('secret'),
+                        aws_access_key_id=os.environ.get('awsaccess'),
+                        aws_secret_access_key=os.environ.get('awssecret'),
                         region_name='us-west-1'
                     )
 
@@ -28,8 +29,8 @@ class db:
         ''' quickly get a client to scan '''
         return boto3.client(
                         'dynamodb',
-                        aws_access_key_id=os.environ.get('access'),
-                        aws_secret_access_key=os.environ.get('secret'),
+                        aws_access_key_id=os.environ.get('awsaccess'),
+                        aws_secret_access_key=os.environ.get('awssecret'),
                         region_name='us-west-1'
                     )
 
@@ -285,13 +286,14 @@ class saleddbconn(ddbconn):
                         'AttributeType': 'S'
                     }
                 ]
+        self.aginf = agroagroinfo()
         ddbconn.__init__(self, self.tid, self.key_schema, self.attr_defn)
 
     def fmtentry__(self, **kw):
         '''
         clean up our input into a standard format
         '''
-        return {
+        _ = {
             'id':        str(int(time())),
             'seller':    kw.get('seller',   'NA'),
             'title':     kw.get('title',    'NA'),
@@ -299,8 +301,12 @@ class saleddbconn(ddbconn):
             'size':      kw.get('size',     'NA'),
             'price':     kw.get('price',    'NA'),
             'desc':      kw.get('desc',     'NA'),
-            'imgurl':    kw.get('imgurl',   'NA')
+            'imgurl':    kw.get('imgurl',   'NA'),
+            'topbid':    0,
+            'fieldID':   ''
         }
+        _['fieldID'] = self.aginf.initfield(_['id'], _['location'])
+        return _
 
     def addSaleItem(self, **kw):
         ''' add an item to our for sale db '''
