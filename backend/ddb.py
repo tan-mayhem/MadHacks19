@@ -12,9 +12,9 @@ load_dotenv()
 
 # methods that dont belong anywhere else
 
-def sendtextupdate(recip, newprice):
+def sendtextupdate(recip, title, newprice):
     client = Client(os.environ.get('twilacc'), os.environ.get('twiltok'))
-    msg = f"Hello from FarmWatch! The max bid on your plot is now {newprice}"
+    msg = f"Hello from FarmWatch! The max bid on your plot \"{title}\"is now ${newprice}/acre"
     message = client.messages.create(
         to=recip,
         from_=os.environ.get('twilnum'),
@@ -373,7 +373,7 @@ class saleddbconn(ddbconn):
                 ReturnValues="UPDATED_NEW"
             )
             print(2)
-            sendtextupdate(fs['phone'], newprice)
+            sendtextupdate(fs['phone'], fs['title'], newprice)
             return {'Response': 1, 'Current': newprice}
         except Exception as e:
             print(3)
