@@ -14,7 +14,7 @@ load_dotenv()
 
 def sendtextupdate(recip, title, newprice):
     client = Client(os.environ.get('twilacc'), os.environ.get('twiltok'))
-    msg = f"Hello from FarmWatch! The max bid on your plot \"{title}\"is now ${newprice}/acre"
+    msg = f"Hello from FarmWatch! The max bid on your plot \"{title}\" is now ${newprice}/acre"
     message = client.messages.create(
         to=recip,
         from_=os.environ.get('twilnum'),
