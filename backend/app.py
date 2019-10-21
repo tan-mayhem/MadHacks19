@@ -10,7 +10,6 @@ from agroinfo import agroinfo
 load_dotenv()
 
 
-
 # setup ddb
 udb = ddb.userddbconn()
 udb.create()

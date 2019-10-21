@@ -1,8 +1,8 @@
 run these commands to log into server:
 
   cd MadHacks19/backend
-  sudo chmod 400 key-madhacks2019.pem
-  ssh -i "key-madhacks2019.pem" ubuntu@ec2-54-193-24-23.us-west-1.compute.amazonaws.com
+  sudo chmod 400 <KEYFILE>.pem
+  ssh -i "<KEYFILE>.pem" ubuntu@ec2-xx-.us-west-1.compute.amazonaws.com
 
 once on the server:
 
